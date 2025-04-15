@@ -2,11 +2,11 @@ import pandas as pd
 
 # ✅ This is where you create the data
 data = [{
-    "Title": "General Manager",
-    "Company": "Black Diamond",
-    "Location": "Harare",
-    "Expiry Date": "22 April 2025",
-    "Description": ""
+    "Title": "N/A",
+    "Company": "N/A",
+    "Location": "N/A",
+    "Expiry Date": "N/A",
+    "Description": "N/A"
 }]
 
 # Create DataFrame from data

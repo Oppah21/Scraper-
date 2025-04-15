@@ -24,7 +24,8 @@ def scrape_jobs():
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        job_cards = soup.select(".job-listing")[:10]  # Adjust selector if needed
+        # SELECTORS WILL NEED TO BE ADJUSTED BASED ON ACTUAL HTML
+        job_cards = soup.select(".job-listing")
         if not job_cards:
             print("No job listings found.")
             return
@@ -32,11 +33,19 @@ def scrape_jobs():
         job_data = []
 
         for job in job_cards:
-            title = job.select_one(".job-title").text.strip() if job.select_one(".job-title") else "N/A"
-            company = job.select_one(".company-name").text.strip() if job.select_one(".company-name") else "N/A"
-            location = job.select_one(".job-location").text.strip() if job.select_one(".job-location") else "N/A"
-            expiry = job.select_one(".job-expiry").text.strip() if job.select_one(".job-expiry") else "N/A"
-            description = job.select_one(".job-description").text.strip() if job.select_one(".job-description") else "N/A"
+            # title = job.select_one(".job-title").text.strip() if job.select_one(".job-title") else "N/A"
+            # company = job.select_one(".company-name").text.strip() if job.select_one(".company-name") else "N/A"
+            # location = job.select_one(".job-location").text.strip() if job.select_one(".job-location") else "N/A"
+            # expiry = job.select_one(".job-expiry").text.strip() if job.select_one(".job-expiry") else "N/A"
+            # description = job.select_one(".job-description").text.strip() if job.select_one(".job-description") else "N/A"
+            title = job.select_one(".job-listing-title").text.strip() if job.select_one(".job-listing-title") else "N/A"
+            company = job.select_one(".job-listing-company").text.strip() if job.select_one(".job-listing-company") else "N/A"
+            
+            # Extract location and expiry date from job footer
+            location = job.select_one(".icon-material-outline-location-on").find_next('li').text.strip() if job.select_one(".icon-material-outline-location-on") else "N/A"
+            expiry = job.select_one(".icon-material-outline-access-time").find_next('li').text.strip() if job.select_one(".icon-material-outline-access-time") else "N/A"
+            
+            description = job.select_one(".job-listing-text").text.strip() if job.select_one(".job-listing-text") else "N/A"
 
             job_data.append({
                 "Title": title,
@@ -64,6 +73,8 @@ def scrape_jobs():
         logging.error(f"Unexpected error: {e}")
         print(f"An unexpected error occurred: {e}")
 
-# ✅ CORRECTED this block
+ # ✅ CORRECT SCRIPT ENTRY POINT
 if __name__ == "__main__":
     scrape_jobs()
+
+    
